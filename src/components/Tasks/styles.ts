@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import Var from '../../Styles/Var'
+import * as enums from '../../utils/enums/Task'
 
 type TagProps = {
-  Priority?: string
-  Status?: string
+  Priority?: enums.Priority
+  Status?: enums.Status
 }
 
 export const Card = styled.div`
@@ -21,7 +22,10 @@ export const Tittle = styled.h3`
   margin-bottom: 16px;
 `
 
-export const Tag = styled.span<{ $Priority?: string; $Status?: string }>`
+export const Tag = styled.span<{
+  $Priority?: enums.Priority
+  $Status?: enums.Status
+}>`
   padding: 4px 8px;
   font-size: 10px;
   font-weight: bold;
@@ -29,20 +33,16 @@ export const Tag = styled.span<{ $Priority?: string; $Status?: string }>`
   border-radius: 8px;
   margin-right: 16px;
   display: inline-block;
-  background-color: ${(props) =>
-    props.$Status === 'Pending'
-      ? Var.Yellow
-      : props.$Status === 'In Progress'
-      ? Var.Blue
-      : props.$Status === 'Completed'
-      ? Var.Green
-      : props.$Priority === 'Urgent'
-      ? Var.Red
-      : props.$Priority === 'Importante'
-      ? Var.Yellow2
-      : props.$Priority === 'Normal'
-      ? Var.Yellow
-      : '#ccc'};
+  background-color: ${({ $Status, $Priority }) => {
+    if ($Status === enums.Status.COMPLETED) return Var.Green
+    if ($Status === enums.Status.INPROGRESS) return Var.Blue
+    if ($Status === enums.Status.PENDING) return Var.Yellow
+
+    if ($Priority === enums.Priority.URGENT) return Var.Red
+    if ($Priority === enums.Priority.IMPORTANT) return Var.Yellow2
+    if ($Priority === enums.Priority.NORMAL) return Var.Yellow
+    return '#ccc'
+  }};
 `
 
 export const Description = styled.textarea`

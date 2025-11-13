@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import * as S from './styles'
+import * as enums from '../../utils/enums/Task'
 
 type Props = {
   title: string
-  priority: string
-  status: string
+  priority: enums.Priority
+  status: enums.Status
   description: string
 }
 
