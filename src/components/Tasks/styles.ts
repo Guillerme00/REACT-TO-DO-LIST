@@ -1,4 +1,10 @@
 import styled from 'styled-components'
+import Var from '../../Styles/Var'
+
+type TagProps = {
+  Priority?: string
+  Status?: string
+}
 
 export const Card = styled.div`
   background-color: #fcfcfc;
@@ -15,15 +21,28 @@ export const Tittle = styled.h3`
   margin-bottom: 16px;
 `
 
-export const Tag = styled.span`
+export const Tag = styled.span<{ $Priority?: string; $Status?: string }>`
   padding: 4px 8px;
   font-size: 10px;
   font-weight: bold;
   color: #fff;
-  background-color: #e1a32a;
   border-radius: 8px;
   margin-right: 16px;
   display: inline-block;
+  background-color: ${(props) =>
+    props.$Status === 'Pending'
+      ? Var.Yellow
+      : props.$Status === 'In Progress'
+      ? Var.Blue
+      : props.$Status === 'Completed'
+      ? Var.Green
+      : props.$Priority === 'Urgent'
+      ? Var.Red
+      : props.$Priority === 'Importante'
+      ? Var.Yellow2
+      : props.$Priority === 'Normal'
+      ? Var.Yellow
+      : '#ccc'};
 `
 
 export const Description = styled.textarea`
@@ -55,4 +74,11 @@ export const Buttons = styled.button`
   background-color: #2f3640;
   border-radius: 8px;
   margin-right: 8px;
+`
+
+export const SaveButton = styled(Buttons)`
+  background-color: ${Var.Green};
+`
+export const CancelButton = styled(Buttons)`
+  background-color: ${Var.Red};
 `
