@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import { Props } from './index'
 
-type PropsActive = Omit<Props, 'Conter' | 'text'>
+type Props = {
+  Active: boolean
+}
 
-export const Card = styled.div<PropsActive>`
+export const Card = styled.div<Props>`
   padding: 8px;
   border: 1px solid ${(props) => (props.Active ? '#1e90ff' : '#a1a1a1')};
   background-color: ${(props) => (props.Active ? '#fff' : '#fcfcfc')};
@@ -12,7 +13,7 @@ export const Card = styled.div<PropsActive>`
 `
 
 export const Contador = styled.div`
-  fort-weight: bold;
+  font-weight: bold;
   font-size: 24px;
   display: block;
 `

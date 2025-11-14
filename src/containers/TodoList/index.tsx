@@ -6,17 +6,35 @@ import { RootReducer } from '../../store'
 
 const TodoList = () => {
   const { itens } = useSelector((state: RootReducer) => state.tasks)
-  const { input } = useSelector((state: RootReducer) => state.filter)
+  const { input, choise, value } = useSelector(
+    (state: RootReducer) => state.filter
+  )
 
   const TaskFilter = () => {
-    return itens.filter(
-      (item) => item.title.toLowerCase().search(input.toLowerCase()) >= 0
-    )
+    let FilteredTasks = itens
+    if (input) {
+      FilteredTasks = FilteredTasks.filter(
+        (item) => item.title.toLowerCase().search(input.toLowerCase()) >= 0
+      )
+    }
+
+    if (choise === 'priority') {
+      FilteredTasks = FilteredTasks.filter((item) => item.priority === value)
+    } else if (choise === 'status') {
+      FilteredTasks = FilteredTasks.filter((item) => item.status === value)
+    }
+
+    return FilteredTasks
   }
 
   return (
     <S.Container>
       <p>2 tasks marked as: &quot;Category&ldquo; and &quot;{input}&ldquo;</p>
+      <ul>
+        <li>{input}</li>
+        <li>{choise}</li>
+        <li>{value}</li>
+      </ul>
       <ul>
         {TaskFilter().map((t) => (
           <li key={t.title}>
