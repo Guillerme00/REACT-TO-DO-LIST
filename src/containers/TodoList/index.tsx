@@ -40,7 +40,7 @@ const TodoList = () => {
     return msn
   }
 
-  const msn = ShowFilterResult(Task.length)
+  const msn = ShowFilterResult(TaskFilter().length)
 
   return (
     <S.MainContainer>

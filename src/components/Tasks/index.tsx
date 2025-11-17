@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import * as S from './styles'
 import { useDispatch } from 'react-redux'
-import { remove, edit } from '../../store/reducers/Tasks'
+import { remove, edit, changeStatus } from '../../store/reducers/Tasks'
 import ClassTask from '../../models/Task'
 import { SaveButton } from '../../Styles/GlobalReset'
+import { Buttons } from '../../Styles/GlobalReset'
 
 type Props = ClassTask
 
@@ -29,9 +30,24 @@ const Task = ({
     setBeeingEdited(false)
   }
 
+  function changeStatusTask(event: ChangeEvent<HTMLInputElement>) {
+    dispatch(
+      changeStatus({
+        id,
+        finished: event.target.checked
+      })
+    )
+  }
+
   return (
     <S.Card>
-      <S.Tittle>{title}</S.Tittle>
+      <label htmlFor={title}>
+        <input type="checkbox" id={title} onChange={changeStatusTask} />
+        <S.Tittle>
+          {beeingEdited && <em>Editing: </em>}
+          {title}
+        </S.Tittle>
+      </label>
       <S.Tag $Priority={priority}>{priority}</S.Tag>
       <S.Tag $Status={status}>{status}</S.Tag>
       <S.Description
@@ -69,7 +85,7 @@ const Task = ({
           </>
         ) : (
           <>
-            <S.Buttons onClick={() => setBeeingEdited(true)}>Edit</S.Buttons>
+            <Buttons onClick={() => setBeeingEdited(true)}>Edit</Buttons>
             <S.CancelButton onClick={() => dispatch(remove(id))}>
               Remove
             </S.CancelButton>

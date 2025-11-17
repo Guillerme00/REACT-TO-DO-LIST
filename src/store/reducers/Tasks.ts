@@ -1,35 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import Task from '../../models/Task'
-import * as emuns from '../../utils/enums/Task'
+import * as enums from '../../utils/enums/Task'
 
 type TaskState = {
   itens: Task[]
 }
 
 const initialState: TaskState = {
-  itens: [
-    {
-      id: 1,
-      description: 'Description1',
-      priority: emuns.Priority.IMPORTANT,
-      status: emuns.Status.COMPLETED,
-      title: 'Title1'
-    },
-    {
-      id: 2,
-      description: 'Description2',
-      priority: emuns.Priority.NORMAL,
-      status: emuns.Status.INPROGRESS,
-      title: 'Title2'
-    },
-    {
-      id: 3,
-      description: 'Description3',
-      priority: emuns.Priority.URGENT,
-      status: emuns.Status.PENDING,
-      title: 'Title3'
-    }
-  ]
+  itens: []
 }
 
 export const TaskSlice = createSlice({
@@ -46,7 +24,7 @@ export const TaskSlice = createSlice({
         state.itens[TaskIndex] = action.payload
       }
     },
-    register: (state, action: PayloadAction<Task>) => {
+    register: (state, action: PayloadAction<Omit<Task, 'id'>>) => {
       const exist = state.itens.find(
         (task) =>
           task.title.toLowerCase() === action.payload.title.toLowerCase()
@@ -54,11 +32,28 @@ export const TaskSlice = createSlice({
       if (exist) {
         alert('This task already exists')
       } else {
-        state.itens.push(action.payload)
+        const LastTask = state.itens[state.itens.length - 1]
+
+        const NewTask = {
+          ...action.payload,
+          id: LastTask ? LastTask.id + 1 : 1
+        }
+        state.itens.push(NewTask)
+      }
+    },
+    changeStatus: (
+      state,
+      action: PayloadAction<{ id: number; finished: boolean }>
+    ) => {
+      const TaskIndex = state.itens.findIndex((t) => t.id === action.payload.id)
+      if (TaskIndex >= 0) {
+        state.itens[TaskIndex].status = action.payload.finished
+          ? enums.Status.COMPLETED
+          : enums.Status.PENDING
       }
     }
   }
 })
 
-export const { remove, edit, register } = TaskSlice.actions
+export const { remove, edit, register, changeStatus } = TaskSlice.actions
 export default TaskSlice.reducer

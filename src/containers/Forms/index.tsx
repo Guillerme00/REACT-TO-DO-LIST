@@ -8,8 +8,6 @@ import {
 import { useState, Dispatch, FormEvent } from 'react'
 import { useDispatch } from 'react-redux'
 import * as enums from '../../utils/enums/Task'
-import { Label } from '../../components/FilterCard/styles'
-import Task from '../../models/Task'
 import { register } from '../../store/reducers/Tasks'
 import { useNavigate } from 'react-router-dom'
 
@@ -22,14 +20,14 @@ const Forms = () => {
 
   const taskRegister = (event: FormEvent) => {
     event.preventDefault()
-    const TaskAdd = new Task(
-      title,
-      priority,
-      enums.Status.PENDING,
-      description,
-      9
+    dispatch(
+      register({
+        title,
+        priority,
+        description,
+        status: enums.Status.PENDING
+      })
     )
-    dispatch(register(TaskAdd))
     navigate('/')
   }
 
