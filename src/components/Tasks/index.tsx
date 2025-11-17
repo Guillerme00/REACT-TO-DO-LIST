@@ -3,6 +3,7 @@ import * as S from './styles'
 import { useDispatch } from 'react-redux'
 import { remove, edit } from '../../store/reducers/Tasks'
 import ClassTask from '../../models/Task'
+import { SaveButton } from '../../Styles/GlobalReset'
 
 type Props = ClassTask
 
@@ -42,7 +43,7 @@ const Task = ({
       <S.ActionBar>
         {beeingEdited ? (
           <>
-            <S.SaveButton
+            <SaveButton
               onClick={() => {
                 dispatch(
                   edit({
@@ -57,7 +58,7 @@ const Task = ({
               }}
             >
               Save
-            </S.SaveButton>
+            </SaveButton>
             <S.CancelButton
               onClick={() => {
                 CancelEdition()

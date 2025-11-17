@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 
 import Task from '../../components/Tasks'
-import * as S from './styles'
+import * as S from '../../Styles/GlobalReset'
 import { RootReducer } from '../../store'
 
 const TodoList = () => {
@@ -43,8 +43,8 @@ const TodoList = () => {
   const msn = ShowFilterResult(Task.length)
 
   return (
-    <S.Container>
-      <S.Result>{msn}</S.Result>
+    <S.MainContainer>
+      <S.Title as="p">{msn}</S.Title>
       <ul>
         {TaskFilter().map((t) => (
           <li key={t.title}>
@@ -58,7 +58,7 @@ const TodoList = () => {
           </li>
         ))}
       </ul>
-    </S.Container>
+    </S.MainContainer>
   )
 }
 

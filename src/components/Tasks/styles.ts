@@ -70,10 +70,6 @@ export const Buttons = styled.button`
   border-radius: 8px;
   margin-right: 8px;
 `
-
-export const SaveButton = styled(Buttons)`
-  background-color: ${Var.Green};
-`
 export const CancelButton = styled(Buttons)`
   background-color: ${Var.Red};
 `

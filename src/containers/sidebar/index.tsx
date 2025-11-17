@@ -4,6 +4,7 @@ import * as S from './styles'
 import { RootReducer } from '../../store'
 import { ChangeInput } from '../../store/reducers/Filter'
 import * as enums from '../../utils/enums/Task'
+import { Input } from '../../Styles/GlobalReset'
 
 const Sidebar = () => {
   const Dispatch = useDispatch()
@@ -11,7 +12,7 @@ const Sidebar = () => {
   return (
     <S.Aside>
       <div>
-        <S.Input
+        <Input
           type="text"
           placeholder="Seach"
           value={input}
