@@ -12,7 +12,7 @@ export type Props = {
 
 const FilterCard = ({ text, choise, value }: Props) => {
   const Dispatch = useDispatch()
-  const { filter } = useSelector((state: RootReducer) => state)
+  const filter = useSelector((state: RootReducer) => state.filter)
 
   const VerifyActive = () => {
     const SameChoise = filter.choise === choise
@@ -29,23 +29,23 @@ const FilterCard = ({ text, choise, value }: Props) => {
     )
   }
 
+  const tasks = useSelector((state: RootReducer) => state.tasks)
   const ActiveCard = VerifyActive()
 
   const CountTasks = () => {
-    const { itens } = useSelector((state: RootReducer) => state.tasks)
-    if (choise === 'all') return itens.length
+    if (choise === 'all') return tasks.itens.length
     if (choise === 'priority') {
-      return itens.filter((item) => item.priority === value).length
+      return tasks.itens.filter((item) => item.priority === value).length
     }
     if (choise === 'status') {
-      return itens.filter((item) => item.status === value).length
+      return tasks.itens.filter((item) => item.status === value).length
     }
   }
 
   const Counter = CountTasks()
 
   return (
-    <S.Card Active={ActiveCard} onClick={Filter}>
+    <S.Card $Active={ActiveCard} onClick={Filter}>
       <S.Contador>{Counter}</S.Contador>
       <S.Label>{text}</S.Label>
     </S.Card>

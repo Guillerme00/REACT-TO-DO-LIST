@@ -2,11 +2,6 @@ import styled from 'styled-components'
 import Var from '../../Styles/Var'
 import * as enums from '../../utils/enums/Task'
 
-type TagProps = {
-  Priority?: enums.Priority
-  Status?: enums.Status
-}
-
 export const Card = styled.div`
   background-color: #fcfcfc;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

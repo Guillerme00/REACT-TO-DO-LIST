@@ -11,6 +11,7 @@ export const Filters = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 8px;
   margin-top: 16px;
+  cursor: pointer;
 `
 
 export const Input = styled.input`

@@ -12,7 +12,7 @@ const TodoList = () => {
 
   const TaskFilter = () => {
     let FilteredTasks = itens
-    if (input) {
+    if (input !== undefined) {
       FilteredTasks = FilteredTasks.filter(
         (item) => item.title.toLowerCase().search(input.toLowerCase()) >= 0
       )
@@ -27,14 +27,24 @@ const TodoList = () => {
     return FilteredTasks
   }
 
+  const ShowFilterResult = (quantity: number) => {
+    let msn = ''
+    if (choise === 'all') {
+      msn = `${quantity} task(s) founds like: All`
+    } else {
+      msn = `${quantity} task(s) found like: ${`${choise} = ${value}`} ${
+        input !== undefined && input.length > 0 ? `and "${input}"` : ''
+      }`
+    }
+
+    return msn
+  }
+
+  const msn = ShowFilterResult(Task.length)
+
   return (
     <S.Container>
-      <p>2 tasks marked as: &quot;Category&ldquo; and &quot;{input}&ldquo;</p>
-      <ul>
-        <li>{input}</li>
-        <li>{choise}</li>
-        <li>{value}</li>
-      </ul>
+      <S.Result>{msn}</S.Result>
       <ul>
         {TaskFilter().map((t) => (
           <li key={t.title}>
