@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Home from './pages/home'
+import Register from './pages/register'
 
 export const routes = createBrowserRouter([
   {
@@ -8,6 +9,6 @@ export const routes = createBrowserRouter([
   },
   {
     path: '/new',
-    element: <h1>New Task</h1>
+    element: <Register />
   }
 ])

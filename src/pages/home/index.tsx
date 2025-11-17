@@ -1,3 +1,4 @@
+import RegisterButton from '../../components/RegisterButton'
 import Sidebar from '../../containers/sidebar'
 import TodoList from '../../containers/TodoList'
 
@@ -6,6 +7,7 @@ const Home = () => {
     <>
       <Sidebar />
       <TodoList />
+      <RegisterButton />
     </>
   )
 }
